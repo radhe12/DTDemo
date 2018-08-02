@@ -6,7 +6,7 @@
 @model IEnumerable<DealerTrack>
 @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div>
+    <div class="main">
       Plese Upload File  <input type="file" accept=".csv" name="postedFile" required /><br />
         <input type="submit" class="btn" value="View" />
     </div>

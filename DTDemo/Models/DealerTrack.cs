@@ -31,7 +31,7 @@ namespace DTDemo.Models
             dt.CustomerName = values[1];
             dt.DealershipName = values[2].Replace("\"", "");
             dt.Vehicle = values[3];
-            dt.Price = String.Format(ci,"{0:C}",values[4].Replace("\"",""));
+            dt.Price = String.Format(ci, "{0:#.00}", values[4].Replace("\"",""));
             dt.Date = DateTime.Parse(values[5]);
             return dt;
         }

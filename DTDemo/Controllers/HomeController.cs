@@ -38,6 +38,7 @@ namespace DTDemo.Controllers
             List<DealerTrack> values = null;
             if (postedFile != null)
             {
+                //Save file to local directory
                 string path = Server.MapPath("~/Files/");
                 if (!Directory.Exists(path))
                 {
@@ -47,31 +48,12 @@ namespace DTDemo.Controllers
                 filePath = path + Path.GetFileName(postedFile.FileName);
                 string extension = Path.GetExtension(postedFile.FileName);
                 postedFile.SaveAs(filePath);
-
-                //Read the contents of CSV file.
-                //string csvData = (System.IO.File.ReadAllLines(filePath).Skip(1)).ToString();
-
-                ////Execute a loop over the rows.
-                //foreach (string row in csvData.Split('\n'))
-                //{
-                //    if (!string.IsNullOrEmpty(row))
-                //    {
-                //        customers.Add(new DealerTrack
-                //        {
-                //            DealNumber = Convert.ToInt32(row.Split(',')[0]),
-                //            CustomerName = row.Split(',')[1],
-                //            DealershipName = row.Split(',')[2],
-                //            Vehicle = row.Split(',')[3],
-                //            Price =Convert.ToInt64(row.Split(',')[4]),
-                //            Date =DateTime.Parse((row.Split(',')[5])
-                //        });
-
+                 
+              // Read CSV file lines by skiping header line nad convert string to object list
                 values = System.IO.File.ReadAllLines(filePath)
                                                .Skip(1)
                                                .Select(v => DealerTrack.fromCSV(v))
                                                .ToList();
-
-
             }
 
             return View(values);
