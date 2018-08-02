@@ -15,19 +15,7 @@ namespace DTDemo.Controllers
             return View(new List<DealerTrack>());
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+  
 
 
         [HttpPost]
