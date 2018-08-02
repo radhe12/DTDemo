@@ -15,9 +15,6 @@ namespace DTDemo.Controllers
             return View(new List<DealerTrack>());
         }
 
-  
-
-
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase postedFile)
         {
@@ -33,17 +30,24 @@ namespace DTDemo.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                filePath = path + Path.GetFileName(postedFile.FileName);
-                string extension = Path.GetExtension(postedFile.FileName);
-                postedFile.SaveAs(filePath);
-                 
-              // Read CSV file lines by skiping header line nad convert string to object list
-                values = System.IO.File.ReadAllLines(filePath)
-                                               .Skip(1)
-                                               .Select(v => DealerTrack.fromCSV(v))
-                                               .ToList();
-            }
+                try
+                {
+                    filePath = path + Path.GetFileName(postedFile.FileName);
+                    string extension = Path.GetExtension(postedFile.FileName);
+                    postedFile.SaveAs(filePath);
 
+                    // Read CSV file lines by skiping header line nad convert string to object list
+                    values = System.IO.File.ReadAllLines(filePath)
+                                                   .Skip(1)
+                                                   .Select(v => DealerTrack.fromCSV(v))
+                                                   .ToList();
+
+                }
+                catch (Exception ex)
+                {
+                    ViewData["Message"] = "Please try again";
+                }
+            }
             return View(values);
         }
     }
